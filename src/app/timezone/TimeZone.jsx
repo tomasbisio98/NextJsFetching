@@ -1,19 +1,14 @@
 const getTimeZone = async () => {
-  const date = await fetch(
-    "https://worldtimeapi.org/api/timezone/America/Bogota",
-    { next: { revalidate: 10 } }
-  );
-  const data = await date.json();
+  const res = await fetch("http://worldclockapi.com/api/json/utc/now");
+  const data = await res.json();
   return data;
 };
 
 const TimeZone = async () => {
-  const { datetime } = await getTimeZone();
+  const { currentDateTime } = await getTimeZone();
   return (
     <div className="flex items-center justify-center w-full h-screen">
-      <h1 className="text-3xl">{datetime}</h1>
+      <h1 className="text-3xl">{currentDateTime}</h1>
     </div>
   );
 };
-
-export default TimeZone;
